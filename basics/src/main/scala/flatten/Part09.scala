@@ -8,5 +8,19 @@ trait Part09 {
 
   // Exercise: without looking at the previous part, create a type class `Serializable`, a function `toBytes` that impicitly uses this
   // typeclass, and instances for `Int` and `String`.
+  trait Serializable {
+    def bytes: Array[Byte]
+  }
+
+  object Serializable {
+    implicit val stringSerializer = new Serializer[String]{
+      override def bytes(str: String) = str.getBytes
+    }
+
+    def toBytes[A](a: A)(implicit serializer: Serializable[A]): Array[Byte] =
+      serializer.bytes(a)
+  }
+
+  Serializable.toBytes("hello")
 
 }
