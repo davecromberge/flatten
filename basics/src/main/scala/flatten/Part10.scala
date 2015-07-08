@@ -28,6 +28,12 @@ trait Part10 {
   // - Creating a new one: `Future.successful`
 
   // As it turns out, these functionalities are part of a type class called `Monad`:
+  trait Monad[F[_]] {
+    def map[A, B](ma: F[A])(f: A => B): F[B] =
+      flatMap(ma)(x => unit(f(x)))
+    def flatMap[A, B](ma: F[A])(f: A => B): F[B]
+    def unit[B](b: B): F[B]
+  }
 
   trait Monad[F[_]] {
     def map[A, B](container: F[A])(function: A => B): F[B]
@@ -43,6 +49,9 @@ trait Part10 {
   }
 
   // Exercise: create a `Monad` instance for `Option`
-
-
+  val optionMonad = new Monad[Option] {
+    override def map[A, B](container: Option[A])(f: A => B): Option[B] = container.map(f)
+    override def flatMap[A, B](container: Option[A])(f: A => Option[B]): Option[B] = container.flatMap(f)
+    override def create[B](value: B): Option[B] = Some(value)
+  }
 }
