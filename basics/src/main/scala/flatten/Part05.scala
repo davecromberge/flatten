@@ -11,7 +11,7 @@ trait Part05 {
   // will happily desugar for you, and as long as the type you work with has the proper `map` and `flatMap`
   // methods where required, it will be fine.
 
-  // For for-comprehensions with no `yield`, the last step gets desugared to `foreach`.
+  // NOTE: For for-comprehensions with no `yield`, the last step gets desugared to `foreach`.
 
   /* And if you use guards, like this:
 
@@ -43,7 +43,7 @@ trait Part05 {
   } yield a + b + c
 
 
-  // If your yield gets unwieldy, you can also just assign it to a value
+  // NOTE: If your yield gets unwieldy, you can also just assign it to a value
   for {
     a <- Option(3)
     b <- Option(5)
