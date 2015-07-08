@@ -47,4 +47,11 @@ trait Part13 {
   // 2) Put all `Option[Future[A]]` into an Option Transformer, OptionT.
 
   // Exercise: Make a for-comprehension
+  for {
+    userName <- OptionT(Future.successful(getUserName(data)))
+    user <- OptionT(getUser(username))
+    email = getEmail(user)
+    validatedEmail <- OptionT(Future.successful(validateEmail(email)))
+    success <- OptionT(sendEmail(validatedEmail))
+  } yield success
 }
