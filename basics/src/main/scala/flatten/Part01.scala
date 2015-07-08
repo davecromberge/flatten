@@ -27,6 +27,13 @@ trait Part01 {
   }
 
   // Exercise, rewrite the above as a for-comprehension
+  val result2 = for {
+    username <- getUserName(data)
+    user <- getUser(username)
+    email = getEmail(user)
+    validatedEmail <- validateEmail(email)
+    success <- sentEmail(validatedEmail)
+  } yield (success)
 }
 
 trait User
