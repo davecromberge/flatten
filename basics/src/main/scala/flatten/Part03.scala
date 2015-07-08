@@ -36,5 +36,12 @@ trait Part03 {
   val data = Map[String, String]()
 
   // Exercise, write the same program as in Part01 and Part02, with a for-comprehension
-
+  // NOTE: do not need a right projection here because scalaz either is right-biased
+  for {
+    username <- getUserName(data)
+    user <- getUser(name)
+    email = getEmail(user)
+    validatedEmail <- validateEmail(email)
+    success <- sendEmail(validatedEmail)
+  } yield success
 }
