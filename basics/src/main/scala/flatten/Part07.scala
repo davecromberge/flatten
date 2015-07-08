@@ -21,7 +21,7 @@ trait Part07 {
   case class FutureOption[A](contents: Future[Option[A]]) {
     def flatMap[B](fn: A => FutureOption[B]): FutureOption[B] = FutureOption {
       contents.flatMap {
-        case Some(a) => fn(a)
+        case Some(a) => fn(a).contents
         case None => Future.successful(None)
       }
     }
