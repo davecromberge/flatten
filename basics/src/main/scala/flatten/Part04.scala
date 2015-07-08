@@ -32,11 +32,23 @@ trait Part04 {
   Some(5) \/> "Left side!" // == \/-(5)
 
   // Exercise, write our usual program with a for-comprehension, using 'toRightDisjunction' or '\/>'
-
+  for {
+    username <- getUserName(data)
+    user <- getUser(username) \/> "user not found"
+    email = getEmail(user)
+    validatedEmail <- validateEmail(email) \/> "email invalid"
+    success <- sendEmail(validatedEmail)
+  } yield success
 
   // If you're entirely not interested in error messages, you can also decide to
   // 'downgrade' the \/ values to Option. There's a 'toOption' method on \/ for that.
 
   // Bonus exercise: write the program again, but now downgrading \/ to Option.
-
+  for {
+    username <- getUserName(data).toOption
+    user <- getUser(username)
+    email = getEmail(user)
+    validatedEmail <- validateEmail(email)
+    success <- sendEmail(validatedEmail).toOption
+  } yield success
 }
