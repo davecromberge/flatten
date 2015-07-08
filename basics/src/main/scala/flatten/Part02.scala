@@ -56,8 +56,6 @@ trait Part02 {
   // So our program that we could change to using for-comprehensions while it consisted of `Option`s, can't be
   // changed to for comprehensions when it uses `Either`.
 
-  /* This doesn't work:
-
   for {
     username <- getUserName(data).right
     user <- getUser(username).right
@@ -65,7 +63,6 @@ trait Part02 {
     validatedEmail <- validateEmail(email).right
     success <- sendEmail(email).right
   } yield success
-  */
 
   // Exercise: Uncomment the failing code to see the compilation errors.
 }
