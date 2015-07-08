@@ -13,7 +13,7 @@ trait Part13Answers extends Part13 {
     user <- OptionT(getUser(username))
     email = getEmail(user)
     validatedEmail <- OptionT(Future.successful(validateEmail(email)))
-    success <- OptionT(sendEmail(email))
+    success <- OptionT(sendEmail(validatedEmail))
   } yield success
 
 }
